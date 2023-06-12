@@ -1,0 +1,20 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block body %}
+
+<div class="card text-white bg-primary mb-3" style="max-width: 20rem; margin-left: 550px; margin-top: 50px;">
+    <div class="card-header">{{ task.tasktitle }}</div>
+    <div class="card-body">
+        <p> <h6>Employee ID:</h6> {{ task.employeeid }}</p>
+        <p> <h6>Employee Name:</h6> {{ task.employeename }}</p>
+        <p> <h6>Task title:</h6> {{ task.tasktitle }}</p>
+        <p> <h6>Task Info:</h6> {{ task.taskinfo }}</p>
+        <p> <h6>Date given:</h6> {{ task.dategiven }}</p>
+        <p> <h6>Submission date:</h6> {{ task.submissiondate }}</p>
+    </div>
+</div>
+
+
+
+{% endblock %}

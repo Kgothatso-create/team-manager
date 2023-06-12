@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tasks</title>
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="{% url 'index' %}"><i class="fa-solid fa-house fa-lg"></i></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav me-auto">
+              <li class="nav-item">
+                <a class="nav-link active" href="{% url 'index' %}">Home
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="{% url 'addtask' %}">Add Task</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="{% url 'chat' %}">Chat</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="#">Log out</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+    </nav>
+
+    {% block body %}
+    <h1>Tasks</h1>
+    <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col"><i class="fa-solid fa-list fa-lg"></i></th>
+            <th scope="col">Employee ID</th>
+            <th scope="col">Task</th>
+            <th>Date of submission</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% if task %}
+            {% for tasks in task %}
+            <tr class="table-dark">
+              <th scope="row"><i class="fa-solid fa-file fa-lg"></i></th>
+              <td>{{ tasks.employeeid }}</td>
+              <td>{{ tasks.tasktitle }}</td>
+              <td>{{tasks.submissiondate}}</td>
+              <td>
+                <a href="{% url 'viewtask' tasks.tasktitle %}"> <i class="fa-solid fa-folder-open fa-lg"></i></a>
+
+                <a href="#" style="margin-left: 20px;"><i class="fa-solid fa-pen-to-square fa-lg"></i></a>
+
+                
+                <form method="POST" action="{% url 'delete' tasks.tasktitle %}">
+                  {% csrf_token %}
+                  <input type="submit" value="Delete Task">
+                </form>
+
+              </td>
+            </tr>
+            {% endfor %}
+          {% else %}
+          <th scope="row"><i class="fa-solid fa-file fa-lg"></i></th>
+          <td>no data</td>
+          <td>no data</td>
+          <td>no data</td>
+          <td>no actions</td>
+          {% endif %}
+        </tbody>
+      </table>
+    {% endblock %}
+
+</body>
+</html>
